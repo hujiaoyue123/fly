@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        .links{
+            position: relative;
+        }
+        .links li{
+            float: left;
+            padding: 6px 8px 0;
+        }
+        .focus{
+            background: #059ef8;
+            height: 2px;
+            width: 26px;
+            overflow: hidden;
+            position: absolute;
+            left: -80px;
+            top: 0;
+            z-index: 1;
+            -webkit-transition: all cubic-bezier(.2,.2,.45,1.5) .44s;
+            -moz-transition: all cubic-bezier(.2,.2,.45,1.5) .44s;
+            -ms-transition: all cubic-bezier(.2,.2,.45,1.5) .44s;
+            transition: all cubic-bezier(.2,.2,.45,1.5) .44s;
+        }
+    </style>
+</head>
+<body>
+<div class="links" id="globar_topbar_links">
+    <ul>
+        <li><a href="http://www.feng.com" target="_blank">首页</a></li>
+        <li><a href="http://game.feng.com" target="_blank">游戏</a></li>
+        <li><a href="http://tech.feng.com" target="_blank">锋科技</a></li>
+        <li><a href="http://news.feng.com" target="_blank">新闻</a></li>
+        <li><a href="http://lab.feng.com" target="_blank">评测</a></li>
+        <li><a href="http://bbs.feng.com" target="_blank">论坛</a></li>
+        <li><a href="http://apt.feng.com" target="_blank">威锋源</a></li>
+        <li><a href="http://g.feng.com" target="_blank">威锋游戏</a></li>
+        <li><a href="http://live.feng.com" target="_blank">直播</a></li>
+    </ul>
+    <div class="focus" style="width: 26px;"><em></em></div>
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    // JavaScript Document
+    $(document).ready(function(e) {
+//globar_topbar
+        jQuery(function($){
+            var
+                linkTimer,
+                linkPanel = $('#globar_topbar_links'),
+                linkFocusStyle = linkPanel.find('.focus').prop('style');
+            if(linkFocusStyle){
+                linkPanel.delegate('li a', 'mouseenter', function(){
+                    var self = $(this);
+                    clearTimeout(linkTimer);
+                    console.log(self.position().left);
+                    linkFocusStyle.left = self.position().left + 'px';
+                    linkFocusStyle.width = self.innerWidth() + 'px';
+                })
+                    .bind('mouseleave', function(){
+                        clearTimeout(linkTimer);
+                        linkTimer = setTimeout(function(){
+                            linkFocusStyle.left = '';
+                        }, 240);
+                    });
+            }
+        });
+    });
+</script>
+</body>
+</html>
